@@ -1,6 +1,6 @@
 <?php
 
-namespace PMNTS\Gateway\Block\Customer;
+namespace FatZebra\Gateway\Block\Customer;
 
 use Magento\Vault\Api\Data\PaymentTokenInterface;
 use Magento\Vault\Block\AbstractCardRenderer;
@@ -20,7 +20,7 @@ class CardRenderer extends AbstractCardRenderer
      */
     public function canRender(PaymentTokenInterface $token)
     {
-        return $token->getPaymentMethodCode() === \PMNTS\Gateway\Helper\Data::METHOD_CODE;
+        return $token->getPaymentMethodCode() === \FatZebra\Gateway\Helper\Data::METHOD_CODE;
     }
 
     /**

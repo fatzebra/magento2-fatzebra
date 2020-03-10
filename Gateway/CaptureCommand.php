@@ -2,12 +2,12 @@
 /**
  * Capture command (with tokenization if opted-in by customer)
  *
- * @category    PMNTS
- * @package     PMNTS_Gateway
- * @copyright   PMNTS (http://PMNTS.io)
+ * @category    Fat Zebra
+ * @package     FatZebra_Gateway
+ * @copyright   Fat Zebra (https://www.fatzebra.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-namespace PMNTS\Gateway\Gateway;
+namespace FatZebra\Gateway\Gateway;
 
 class CaptureCommand extends AbstractCommand
 {
@@ -37,8 +37,8 @@ class CaptureCommand extends AbstractCommand
     /**
      * CaptureCommand constructor.
      * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
-     * @param \PMNTS\Gateway\Helper\Data $pmntsHelper
-     * @param \PMNTS\Gateway\Model\GatewayFactory $gatewayFactory
+     * @param \FatZebra\Gateway\Helper\Data $fatzebraHelper
+     * @param \FatZebra\Gateway\Model\GatewayFactory $gatewayFactory
      * @param \Psr\Log\LoggerInterface $logger
      * @param \Magento\Vault\Model\PaymentTokenFactory $paymentTokenFactory
      * @param \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository
@@ -48,8 +48,8 @@ class CaptureCommand extends AbstractCommand
      */
     public function __construct(
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
-        \PMNTS\Gateway\Helper\Data $pmntsHelper,
-        \PMNTS\Gateway\Model\GatewayFactory $gatewayFactory,
+        \FatZebra\Gateway\Helper\Data $fatzebraHelper,
+        \FatZebra\Gateway\Model\GatewayFactory $gatewayFactory,
         \Psr\Log\LoggerInterface $logger,
         \Magento\Vault\Model\PaymentTokenFactory $paymentTokenFactory,
         \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository,
@@ -57,7 +57,7 @@ class CaptureCommand extends AbstractCommand
         \Magento\Framework\Serialize\Serializer\Json $json,
         \Magento\Sales\Api\Data\OrderPaymentExtensionInterfaceFactory $paymentExtensionInterfaceFactory
     ) {
-        parent::__construct($scopeConfig, $pmntsHelper, $gatewayFactory, $logger);
+        parent::__construct($scopeConfig, $fatzebraHelper, $gatewayFactory, $logger);
         $this->paymentTokenFactory = $paymentTokenFactory;
         $this->customerRepository = $customerRepository;
         $this->paymentTokenRepository = $paymentTokenRepository;
@@ -77,16 +77,16 @@ class CaptureCommand extends AbstractCommand
         /** @var \Magento\Sales\Model\Order $order */
         $order = $payment->getOrder();
 
-        $pmntsToken = $payment->getAdditionalInformation('pmnts_token');
+        $fatzebraToken = $payment->getAdditionalInformation('fatzebra_token');
 
-        /** @var \PMNTS\Gateway\Model\Gateway $gateway */
+        /** @var \FatZebra\Gateway\Model\Gateway $gateway */
         $gateway = $this->getGateway($order->getStoreId());
 
-        $reference = $this->pmntsHelper->getOrderReference($order);
-        $fraudData = $this->pmntsHelper->buildFraudPayload($order);
+        $reference = $this->fatzebraHelper->getOrderReference($order);
+        $fraudData = $this->fatzebraHelper->buildFraudPayload($order);
 
         /** @var array $result */
-        $result = $gateway->token_purchase($pmntsToken, $commandSubject['amount'], $reference, null, $fraudData);
+        $result = $gateway->token_purchase($fatzebraToken, $commandSubject['amount'], $reference, null, $fraudData);
 
         if ($result && isset($result['response'])) {
             if ($result['response']['successful'] === false) {
@@ -102,7 +102,7 @@ class CaptureCommand extends AbstractCommand
             throw new \Magento\Framework\Validator\Exception(__('Payment gateway error, please contact customer service.'));
         }
 
-        if ($payment->getAdditionalInformation('pmnts_save_token') && $order->getCustomerId()) {
+        if ($payment->getAdditionalInformation('fatzebra_save_token') && $order->getCustomerId()) {
             try {
                 $paymentTokenDetails = $this->getTokenDetails($result['response']);
             } catch (\Exception $ex) {
@@ -115,14 +115,14 @@ class CaptureCommand extends AbstractCommand
             $paymentToken->setType(\Magento\Vault\Api\Data\PaymentTokenFactoryInterface::TOKEN_TYPE_CREDIT_CARD);
             $paymentToken->setTokenDetails($this->json->serialize($paymentTokenDetails));
             $paymentToken->setExpiresAt(new \DateTime($result['response']['card_expiry']));
-            $paymentToken->setGatewayToken($pmntsToken);
+            $paymentToken->setGatewayToken($fatzebraToken);
             /** @var \Magento\Sales\Api\Data\OrderPaymentExtension $extension */
             $paymentExtension = $this->paymentExtensionInterfaceFactory->create();
             $paymentExtension->setVaultPaymentToken($paymentToken);
             $payment->setExtensionAttributes($paymentExtension);
         } else {
             // If the customer has not opted into the token storage, do not persist it to the database
-            $payment->unsAdditionalInformation('pmnts_token');
+            $payment->unsAdditionalInformation('fatzebra_token');
         }
     }
 

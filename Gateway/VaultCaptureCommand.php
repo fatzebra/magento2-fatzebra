@@ -2,12 +2,12 @@
 /**
  * Vault capture command
  *
- * @category    PMNTS
- * @package     PMNTS_Gateway
- * @copyright   PMNTS (http://PMNTS.io)
+ * @category    Fat Zebra
+ * @package     FatZebra_Gateway
+ * @copyright   Fat Zebra (https://www.fatzebra.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-namespace PMNTS\Gateway\Gateway;
+namespace FatZebra\Gateway\Gateway;
 
 use Psr\Log\LoggerInterface;
 
@@ -22,19 +22,19 @@ class VaultCaptureCommand extends AbstractCommand
     /**
      * VaultCaptureCommand constructor.
      * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
-     * @param \PMNTS\Gateway\Helper\Data $pmntsHelper
-     * @param \PMNTS\Gateway\Model\GatewayFactory $gatewayFactory
+     * @param \FatZebra\Gateway\Helper\Data $fatzebraHelper
+     * @param \FatZebra\Gateway\Model\GatewayFactory $gatewayFactory
      * @param LoggerInterface $logger
      * @param \Magento\Vault\Api\PaymentTokenManagementInterface $tokenManagement
      */
     public function __construct(
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
-        \PMNTS\Gateway\Helper\Data $pmntsHelper,
-        \PMNTS\Gateway\Model\GatewayFactory $gatewayFactory,
+        \FatZebra\Gateway\Helper\Data $fatzebraHelper,
+        \FatZebra\Gateway\Model\GatewayFactory $gatewayFactory,
         \Psr\Log\LoggerInterface $logger,
         \Magento\Vault\Api\PaymentTokenManagementInterface $tokenManagement
     ) {
-        parent::__construct($scopeConfig, $pmntsHelper, $gatewayFactory, $logger);
+        parent::__construct($scopeConfig, $fatzebraHelper, $gatewayFactory, $logger);
         $this->tokenManagement = $tokenManagement;
     }
 
@@ -63,14 +63,14 @@ class VaultCaptureCommand extends AbstractCommand
         );
 
         if ($token) {
-            /** @var  \PMNTS\Gateway\Model\Gateway $gateway */
+            /** @var  \FatZebra\Gateway\Model\Gateway $gateway */
             $gateway = $this->getGateway($storeId);
-            $fraudData = $this->pmntsHelper->buildFraudPayload($order);
+            $fraudData = $this->fatzebraHelper->buildFraudPayload($order);
 
             $result = $gateway->token_purchase(
                 $token->getGatewayToken(),
                 $commandSubject['amount'],
-                $this->pmntsHelper->getOrderReference($order),
+                $this->fatzebraHelper->getOrderReference($order),
                 null,
                 $fraudData
             );

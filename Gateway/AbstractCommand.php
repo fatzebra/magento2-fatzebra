@@ -1,16 +1,16 @@
 <?php
 
-namespace PMNTS\Gateway\Gateway;
+namespace FatZebra\Gateway\Gateway;
 
 abstract class AbstractCommand implements \Magento\Payment\Gateway\CommandInterface
 {
     /** @var \Magento\Framework\App\Config\ScopeConfigInterface */
     protected $scopeConfig;
 
-    /** @var \PMNTS\Gateway\Helper\Data */
-    protected $pmntsHelper;
+    /** @var \FatZebra\Gateway\Helper\Data */
+    protected $fatzebraHelper;
 
-    /** @var \PMNTS\Gateway\Model\GatewayFactory */
+    /** @var \FatZebra\Gateway\Model\GatewayFactory */
     protected $gatewayFactory;
 
     /** @var \Psr\Log\LoggerInterface */
@@ -19,42 +19,42 @@ abstract class AbstractCommand implements \Magento\Payment\Gateway\CommandInterf
     /**
      * AbstractCommand constructor.
      * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
-     * @param \PMNTS\Gateway\Helper\Data $pmntsHelper
-     * @param \PMNTS\Gateway\Model\GatewayFactory $gatewayFactory
+     * @param \FatZebra\Gateway\Helper\Data $fatzebraHelper
+     * @param \FatZebra\Gateway\Model\GatewayFactory $gatewayFactory
      * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
-        \PMNTS\Gateway\Helper\Data $pmntsHelper,
-        \PMNTS\Gateway\Model\GatewayFactory $gatewayFactory,
+        \FatZebra\Gateway\Helper\Data $fatzebraHelper,
+        \FatZebra\Gateway\Model\GatewayFactory $gatewayFactory,
         \Psr\Log\LoggerInterface $logger
     ) {
         $this->scopeConfig = $scopeConfig;
-        $this->pmntsHelper = $pmntsHelper;
+        $this->fatzebraHelper = $fatzebraHelper;
         $this->gatewayFactory = $gatewayFactory;
         $this->logger = $logger;
     }
 
     /**
      * @param $storeId
-     * @return \Pmnts\Gateway\Model\Gateway
+     * @return \FatZebra\Gateway\Model\Gateway
      */
     public function getGateway($storeId)
     {
         $username = $this->scopeConfig->getValue(
-            \PMNTS\Gateway\Helper\Data::CONFIG_PATH_PMNTS_USERNAME,
+            \FatZebra\Gateway\Helper\Data::CONFIG_PATH_FATZEBRA_USERNAME,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
             $storeId
         );
 
         $token = $this->scopeConfig->getValue(
-            \PMNTS\Gateway\Helper\Data::CONFIG_PATH_PMNTS_TOKEN,
+            \FatZebra\Gateway\Helper\Data::CONFIG_PATH_FATZEBRA_TOKEN,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
             $storeId
         );
 
         $sandbox = (bool)$this->scopeConfig->getValue(
-            \PMNTS\Gateway\Helper\Data::CONFIG_PATH_PMNTS_SANDBOX,
+            \FatZebra\Gateway\Helper\Data::CONFIG_PATH_FATZEBRA_SANDBOX,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
             $storeId
         );

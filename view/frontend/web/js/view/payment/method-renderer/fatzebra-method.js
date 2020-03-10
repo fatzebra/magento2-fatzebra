@@ -1,9 +1,9 @@
 /**
- * PMNTS_Gateway Magento JS component
+ * FatZebra_Gateway Magento JS component
  *
- * @category    PMNTS
- * @package     PMNTS_Gateway
- * @copyright   PMNTS (http://PMNTS.io)
+ * @category    Fat Zebra
+ * @package     FatZebra_Gateway
+ * @copyright   Fat Zebra (https://www.fatzebra.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 /*browser:true*/
@@ -20,12 +20,12 @@ define(
   function (Component, $, validator, messageList, fullScreenLoader, VaultEnabler) {
         'use strict';
 
-        window.pmntsGateway.messageList = messageList;
-        window.pmntsGateway.fullScreenLoader = fullScreenLoader;
+        window.fatzebraGateway.messageList = messageList;
+        window.fatzebraGateway.fullScreenLoader = fullScreenLoader;
 
         return Component.extend({
             defaults: {
-                template: 'PMNTS_Gateway/payment/pmnts-form'
+                template: 'FatZebra_Gateway/payment/fatzebra-form'
             },
 
             initialize: function() {
@@ -38,11 +38,11 @@ define(
              * @returns {String}
              */
             getVaultCode: function () {
-                return window.checkoutConfig.payment['pmntsGateway'].ccVaultCode;
+                return window.checkoutConfig.payment['fatzebraGateway'].ccVaultCode;
             },
 
             getCode: function() {
-                return 'pmnts_gateway';
+                return 'fatzebra_gateway';
             },
 
             isActive: function() {
@@ -50,27 +50,27 @@ define(
             },
 
             getIframeUrl: function() {
-              return window.checkoutConfig.payment.pmntsGateway.iframeSrc;
+              return window.checkoutConfig.payment.fatzebraGateway.iframeSrc;
             },
 
             canSaveCard: function() {
-              return window.checkoutConfig.payment.pmntsGateway.canSaveCard;
+              return window.checkoutConfig.payment.fatzebraGateway.canSaveCard;
             },
 
             customerHasSavedCC: function() {
-              return window.checkoutConfig.payment.pmntsGateway.customerHasSavedCC;
+              return window.checkoutConfig.payment.fatzebraGateway.customerHasSavedCC;
             },
 
-            pmntsPlaceOrder: function() {
-                window.pmntsGateway.processIframeOrder();
+            fatzebraPlaceOrder: function() {
+                window.fatzebraGateway.processIframeOrder();
             },
 
             getData: function() {
                 var data = {
                     'method': this.item.method,
                     'additional_data': {
-                        "cc_token": jQuery('#pmnts_gateway-token').val(),
-                        "cc_save": jQuery("#pmnts_gateway_cc_save").is(':checked')
+                        "cc_token": jQuery('#fatzebra_gateway-token').val(),
+                        "cc_save": jQuery("#fatzebra_gateway_cc_save").is(':checked')
                     }
                 };
 
@@ -83,17 +83,17 @@ define(
 
 setTimeout(function() {
   var s = document.createElement( 'script' );
-  s.setAttribute( 'src', window.checkoutConfig.payment.pmntsGateway.fraudFingerprintSrc );
+  s.setAttribute( 'src', window.checkoutConfig.payment.fatzebraGateway.fraudFingerprintSrc );
   document.body.appendChild( s );
 }, 1000);
 
 
-window.pmntsGateway = {
+window.fatzebraGateway = {
   attachEvents: function() {
     // Clear existing events...
-    window.removeEventListener ? window.removeEventListener("message", window.pmntsGateway.receiveMessage, false) : window.detatchEvent("onmessage", window.pmntsGateway.receiveMessage);
+    window.removeEventListener ? window.removeEventListener("message", window.fatzebraGateway.receiveMessage, false) : window.detatchEvent("onmessage", window.fatzebraGateway.receiveMessage);
     // And add...
-    window.addEventListener ? window.addEventListener("message", window.pmntsGateway.receiveMessage, false) : window.attachEvent("onmessage", window.pmntsGateway.receiveMessage);
+    window.addEventListener ? window.addEventListener("message", window.fatzebraGateway.receiveMessage, false) : window.attachEvent("onmessage", window.fatzebraGateway.receiveMessage);
   },
   processIframeOrder: function() {
     // PostMessage
@@ -102,18 +102,18 @@ window.pmntsGateway = {
 
     // Trigger the iframe
     var iframe = document.getElementById("checkout-iframe");
-    window.pmntsGateway.fullScreenLoader.startLoader();
+    window.fatzebraGateway.fullScreenLoader.startLoader();
     iframe.contentWindow.postMessage('doCheckout', '*');
   },
 
   receiveMessage: function(event) {
       if (event.origin.indexOf("paynow") === -1)  return;
-      window.pmntsGateway.fullScreenLoader.stopLoader();
+      window.fatzebraGateway.fullScreenLoader.stopLoader();
 
       var payload = event.data;
       if (typeof event.data == 'string') {
           if (/\[object/i.test(event.data)) {
-              window.pmntsGateway.messageList.addErrorMessage({message: "Sorry, it looks like there has been a problem communicating with your browsers..."});
+              window.fatzebraGateway.messageList.addErrorMessage({message: "Sorry, it looks like there has been a problem communicating with your browsers..."});
           }
           var pairs = payload.split("&");
           payload = {};
@@ -126,27 +126,27 @@ window.pmntsGateway = {
 
       if ('data' in payload) {
           if (payload.data.message == "form.invalid") {
-              window.pmntsGateway.messageList.addErrorMessage({message: "Validation error: " + payload.data.errors});
+              window.fatzebraGateway.messageList.addErrorMessage({message: "Validation error: " + payload.data.errors});
               return;
           }
           // Modern browser
           // Use payload.data.x
-          window.pmntsGateway.fillInPaymentForm(payload.data);
+          window.fatzebraGateway.fillInPaymentForm(payload.data);
       } else {
           // Old browser don't use payload.data.x
           if (payload.message == "form.invalid") {
-              window.pmntsGateway.messageList.addErrorMessage({message: "Validation error: " + payload.errors});
+              window.fatzebraGateway.messageList.addErrorMessage({message: "Validation error: " + payload.errors});
               return;
           }
-          window.pmntsGateway.fillInPaymentForm(payload);
+          window.fatzebraGateway.fillInPaymentForm(payload);
       }
   },
   fillInPaymentForm: function(data) {
-    jQuery("#pmnts_gateway-token").val(data.token);
-    jQuery('#pmnts-place-token-order').click();
+    jQuery("#fatzebra_gateway-token").val(data.token);
+    jQuery('#fatzebra-place-token-order').click();
   },
   messageList: null,
   fullScreenLoader: null
 };
 
-window.pmntsGateway.attachEvents();
+window.fatzebraGateway.attachEvents();

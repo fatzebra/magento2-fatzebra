@@ -1,9 +1,9 @@
 /**
- * PMNTS_Gateway Magento JS component
+ * FatZebra_Gateway Magento JS component
  *
- * @category    PMNTS
- * @package     PMNTS_Gateway
- * @copyright   PMNTS (http://PMNTS.io)
+ * @category    Fat Zebra
+ * @package     FatZebra_Gateway
+ * @copyright   Fat Zebra (https://www.fatzebra.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 /*browser:true*/
@@ -20,8 +20,8 @@ define(
         'use strict';
         rendererList.push(
             {
-                type: 'pmnts_gateway',
-                component: 'PMNTS_Gateway/js/view/payment/method-renderer/pmnts-method'
+                type: 'fatzebra_gateway',
+                component: 'FatZebra_Gateway/js/view/payment/method-renderer/fatzebra-method'
             }
         );
         /** Add view logic here if needed */

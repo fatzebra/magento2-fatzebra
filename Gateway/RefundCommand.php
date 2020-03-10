@@ -2,12 +2,12 @@
 /**
  * Refund command
  *
- * @category    PMNTS
- * @package     PMNTS_Gateway
- * @copyright   PMNTS (http://PMNTS.io)
+ * @category    Fat Zebra
+ * @package     FatZebra_Gateway
+ * @copyright   Fat Zebra (https://www.fatzebra.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-namespace PMNTS\Gateway\Gateway;
+namespace FatZebra\Gateway\Gateway;
 
 class RefundCommand extends AbstractCommand
 {
@@ -20,11 +20,11 @@ class RefundCommand extends AbstractCommand
     {
         /** @var \Magento\Sales\Model\Order\Payment $payment */
         $payment = $commandSubject['payment']->getPayment();
-        /** @var \PMNTS\Gateway\Model\Gateway $gateway */
+        /** @var \FatZebra\Gateway\Model\Gateway $gateway */
         $gateway = $this->getGateway($payment->getOrder()->getStoreId());
         // At this point, we don't have a CreditMemo increment ID, so append a timestamp to ensure uniqueness in the event
         // of multiple refunds against a single invoice.
-        $reference = $this->pmntsHelper->getOrderReference($payment->getOrder()) . '-R-' . (new \DateTime())->format('ymdhi');
+        $reference = $this->fatzebaHelper->getOrderReference($payment->getOrder()) . '-R-' . (new \DateTime())->format('ymdhi');
         $response = $gateway->refund($payment->getLastTransId(), $commandSubject['amount'], $reference);
         if (is_array($response) && array_key_exists('successful', $response)) {
             if ($response['successful'] === true) {

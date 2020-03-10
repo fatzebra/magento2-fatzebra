@@ -1,119 +1,119 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 
-    <virtualType name="PmntsPayment" type="Magento\Payment\Model\Method\Adapter">
+    <virtualType name="FatZebraPayment" type="Magento\Payment\Model\Method\Adapter">
         <arguments>
-            <argument name="code" xsi:type="const">PMNTS\Gateway\Helper\Data::METHOD_CODE</argument>
+            <argument name="code" xsi:type="const">FatZebra\Gateway\Helper\Data::METHOD_CODE</argument>
             <argument name="infoBlockType" xsi:type="string">Magento\Payment\Block\Info</argument>
             <argument name="formBlockType" xsi:type="string">Magento\Payment\Block\Form\Cc</argument>
-            <argument name="valueHandlerPool" xsi:type="object">PmntsValueHandlerPool</argument>
-            <!--<argument name="validatorPool" xsi:type="object">PmntsValidatorPool</argument>-->
-            <argument name="commandPool" xsi:type="object">PmntsCommandPool</argument>
+            <argument name="valueHandlerPool" xsi:type="object">FatZebraValueHandlerPool</argument>
+            <!--<argument name="validatorPool" xsi:type="object">FatZebraValidatorPool</argument>-->
+            <argument name="commandPool" xsi:type="object">FatZebraCommandPool</argument>
         </arguments>
     </virtualType>
 
     <!-- Commands infrastructure -->
-    <virtualType name="PmntsCommandPool" type="Magento\Payment\Gateway\Command\CommandPool">
+    <virtualType name="FatZebraCommandPool" type="Magento\Payment\Gateway\Command\CommandPool">
         <arguments>
             <argument name="commands" xsi:type="array">
-                <item name="capture" xsi:type="string">PMNTS\Gateway\Gateway\CaptureCommand</item>
-                <item name="vault_sale" xsi:type="string">PMNTS\Gateway\Gateway\VaultCaptureCommand</item>
-                <item name="refund" xsi:type="string">PMNTS\Gateway\Gateway\RefundCommand</item>
+                <item name="capture" xsi:type="string">FatZebra\Gateway\Gateway\CaptureCommand</item>
+                <item name="vault_sale" xsi:type="string">FatZebra\Gateway\Gateway\VaultCaptureCommand</item>
+                <item name="refund" xsi:type="string">FatZebra\Gateway\Gateway\RefundCommand</item>
             </argument>
         </arguments>
     </virtualType>
 
-    <virtualType name="PmntsValueHandlerPool" type="Magento\Payment\Gateway\Config\ValueHandlerPool">
+    <virtualType name="FatZebraValueHandlerPool" type="Magento\Payment\Gateway\Config\ValueHandlerPool">
         <arguments>
             <argument name="handlers" xsi:type="array">
-                <item name="default" xsi:type="string">PmntsValueHandler</item>
-                <item name="vault" xsi:type="string">PmntsVaultValueHandler</item>
+                <item name="default" xsi:type="string">FatZebraValueHandler</item>
+                <item name="vault" xsi:type="string">FatZebraVaultValueHandler</item>
             </argument>
         </arguments>
     </virtualType>
 
-    <virtualType name="PmntsValueHandler" type="Magento\Payment\Gateway\Config\ConfigValueHandler">
+    <virtualType name="FatZebraValueHandler" type="Magento\Payment\Gateway\Config\ConfigValueHandler">
         <arguments>
-            <argument name="configInterface" xsi:type="object">PmntsPaymentConfig</argument>
+            <argument name="configInterface" xsi:type="object">FatZebraPaymentConfig</argument>
         </arguments>
     </virtualType>
 
-    <virtualType name="PmntsPaymentConfig" type="Magento\Payment\Gateway\Config\Config">
+    <virtualType name="FatZebraPaymentConfig" type="Magento\Payment\Gateway\Config\Config">
         <arguments>
-            <argument name="methodCode" xsi:type="const">PMNTS\Gateway\Helper\Data::METHOD_CODE</argument>
+            <argument name="methodCode" xsi:type="const">FatZebra\Gateway\Helper\Data::METHOD_CODE</argument>
         </arguments>
     </virtualType>
 
-    <virtualType name="PmntsVaultValueHandler" type="Magento\Payment\Gateway\Config\ConfigValueHandler">
+    <virtualType name="FatZebraVaultValueHandler" type="Magento\Payment\Gateway\Config\ConfigValueHandler">
         <arguments>
-            <argument name="configInterface" xsi:type="object">PmntsVaultPaymentConfig</argument>
+            <argument name="configInterface" xsi:type="object">FatZebraVaultPaymentConfig</argument>
         </arguments>
     </virtualType>
 
-    <virtualType name="PmntsVaultValueHandlerPool" type="VaultPaymentValueHandlerPool">
+    <virtualType name="FatZebraVaultValueHandlerPool" type="VaultPaymentValueHandlerPool">
         <arguments>
             <argument name="handlers" xsi:type="array">
-                <item name="default" xsi:type="string">PmntsVaultValueHandler</item>
+                <item name="default" xsi:type="string">FatZebraVaultValueHandler</item>
             </argument>
         </arguments>
     </virtualType>
 
-    <virtualType name="PmntsVaultPaymentConfig" type="Magento\Payment\Gateway\Config\Config">
+    <virtualType name="FatZebraVaultPaymentConfig" type="Magento\Payment\Gateway\Config\Config">
         <arguments>
-            <argument name="methodCode" xsi:type="const">PMNTS\Gateway\Helper\Data::VAULT_METHOD_CODE</argument>
+            <argument name="methodCode" xsi:type="const">FatZebra\Gateway\Helper\Data::VAULT_METHOD_CODE</argument>
         </arguments>
     </virtualType>
 
-    <virtualType name="PmntsVaultProvider" type="Magento\Vault\Model\Method\Vault">
+    <virtualType name="FatZebraVaultProvider" type="Magento\Vault\Model\Method\Vault">
         <arguments>
-            <argument name="config" xsi:type="object">PmntsVaultPaymentConfig</argument>
-            <argument name="vaultProvider" xsi:type="object">PmntsPayment</argument>
-            <argument name="code" xsi:type="const">PMNTS\Gateway\Helper\Data::VAULT_METHOD_CODE</argument>
+            <argument name="config" xsi:type="object">FatZebraVaultPaymentConfig</argument>
+            <argument name="vaultProvider" xsi:type="object">FatZebraPayment</argument>
+            <argument name="code" xsi:type="const">FatZebra\Gateway\Helper\Data::VAULT_METHOD_CODE</argument>
         </arguments>
     </virtualType>
 
     <type name="Magento\Payment\Gateway\Command\CommandManagerPool">
         <arguments>
             <argument name="executors" xsi:type="array">
-                <item name="pmnts_gateway" xsi:type="string">PmntsCommandManager</item>
+                <item name="fatzebra_gateway" xsi:type="string">FatZebraCommandManager</item>
             </argument>
         </arguments>
     </type>
     <!-- Command managers section for Vault -->
-    <virtualType name="PmntsCommandManager" type="Magento\Payment\Gateway\Command\CommandManager">
+    <virtualType name="FatZebraCommandManager" type="Magento\Payment\Gateway\Command\CommandManager">
         <arguments>
-            <argument name="commandPool" xsi:type="object">PmntsCommandPool</argument>
+            <argument name="commandPool" xsi:type="object">FatZebraCommandPool</argument>
         </arguments>
     </virtualType>
 
-    <virtualType name="PmntsGatewayLoggerHandler" type="\Magento\Framework\Logger\Handler\Base">
+    <virtualType name="FatZebraGatewayLoggerHandler" type="\Magento\Framework\Logger\Handler\Base">
         <arguments>
-            <argument name="fileName" xsi:type="string">/var/log/pmnts_gateway.log</argument>
+            <argument name="fileName" xsi:type="string">/var/log/fatzebra_gateway.log</argument>
         </arguments>
     </virtualType>
 
-    <virtualType name="PmntsGatewayLogger" type="Magento\Framework\Logger\Monolog">
+    <virtualType name="FatZebraGatewayLogger" type="Magento\Framework\Logger\Monolog">
         <arguments>
-            <argument name="name" xsi:type="object">pmnts_gateway</argument>
+            <argument name="name" xsi:type="object">fatzebra_gateway</argument>
             <argument name="handlers" xsi:type="array">
-                <item name="default" xsi:type="object">PmntsGatewayLoggerHandler</item>
+                <item name="default" xsi:type="object">FatZebraGatewayLoggerHandler</item>
             </argument>
         </arguments>
     </virtualType>
 
-    <type name="\PMNTS\Gateway\Gateway\RefundCommand">
+    <type name="\FatZebra\Gateway\Gateway\RefundCommand">
         <arguments>
-            <argument name="logger" xsi:type="object">PmntsGatewayLogger</argument>
+            <argument name="logger" xsi:type="object">FatZebraGatewayLogger</argument>
         </arguments>
     </type>
-    <type name="\PMNTS\Gateway\Gateway\CaptureCommand">
+    <type name="\FatZebra\Gateway\Gateway\CaptureCommand">
         <arguments>
-            <argument name="logger" xsi:type="object">PmntsGatewayLogger</argument>
+            <argument name="logger" xsi:type="object">FatZebraGatewayLogger</argument>
         </arguments>
     </type>
-    <type name="\PMNTS\Gateway\Gateway\VaultCaptureCommand">
+    <type name="\FatZebra\Gateway\Gateway\VaultCaptureCommand">
         <arguments>
-            <argument name="logger" xsi:type="object">PmntsGatewayLogger</argument>
+            <argument name="logger" xsi:type="object">FatZebraGatewayLogger</argument>
         </arguments>
     </type>
 </config>

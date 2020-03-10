@@ -24,7 +24,7 @@
     *
     * @package FatZebra
     */
-namespace PMNTS\Gateway\Model;
+namespace FatZebra\Gateway\Model;
 
 use Zend\Http\Client\Adapter\Exception\TimeoutException;
 
@@ -41,12 +41,12 @@ class Gateway
     /**
     * The URL of the Fat Zebra gateway
     */
-    public $url = "https://gateway.fatzebra.com.au";
+    public $url = "https://gateway.pmnts.io";
 
     /**
     * The sandbox URL of the Fat Zebra gateway
     */
-    public $sandbox_url = "https://gateway.sandbox.fatzebra.com.au";
+    public $sandbox_url = "https://gateway.pmnts-sandbox.io";
 
     /**
     * The API version for the requests

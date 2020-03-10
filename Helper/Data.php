@@ -1,14 +1,14 @@
 <?php
-namespace PMNTS\Gateway\Helper;
+namespace FatZebra\Gateway\Helper;
 
 class Data extends \Magento\Framework\App\Helper\AbstractHelper
 {
-    const METHOD_CODE = 'pmnts_gateway';
-    const VAULT_METHOD_CODE = 'pmnts_gateway_vault';
+    const METHOD_CODE = 'fatzebra_gateway';
+    const VAULT_METHOD_CODE = 'fatzebra_gateway_vault';
 
-    const CONFIG_PATH_PMNTS_USERNAME = 'payment/pmnts_gateway/username';
-    const CONFIG_PATH_PMNTS_TOKEN = 'payment/pmnts_gateway/token';
-    const CONFIG_PATH_PMNTS_SANDBOX = 'payment/pmnts_gateway/sandbox_mode';
+    const CONFIG_PATH_FATZEBRA_USERNAME = 'payment/fatzebra_gateway/username';
+    const CONFIG_PATH_FATZEBRA_TOKEN = 'payment/fatzebra_gateway/token';
+    const CONFIG_PATH_FATZEBRA_SANDBOX = 'payment/fatzebra_gateway/sandbox_mode';
 
 
     const RE_ANS = "/[^A-Z\d\-_',\.;:\s]*/i";
@@ -137,7 +137,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                     "id" => $this->cleanForFraud($customerId, self::RE_ANS, 16),
                     "post_code" => $this->cleanForFraud($billing->getPostcode(), self::RE_AN, 9)
                 ],
-            "device_id" => $payment->getAdditionalInformation('pmnts_device_id'),
+            "device_id" => $payment->getAdditionalInformation('pmmts_device_id'),
             "items" => $orderItems,
             "recipients" => [
                 [
@@ -252,6 +252,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
     protected function getConfigData($field, $storeId = 0)
     {
-        return $this->scopeConfig->getValue('payment/pmnts_gateway/' . $field, 'stores', $storeId);
+        return $this->scopeConfig->getValue('payment/fatzebra_gateway/' . $field, 'stores', $storeId);
     }
 }

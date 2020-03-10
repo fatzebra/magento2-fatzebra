@@ -1,9 +1,9 @@
-PMNTS Magento 2 Module
+Fat Zebra Magento 2 Module
 ======================
 
 Overview
 --------
-The PMNTS Magento 2 module provides a simple integration method for Magento 2.x with the Fat Zebra, Cloud Payments and PMNTS gateway services. This module includes support for the following functionality:
+The Fat Zebra Magento 2 module provides a simple integration method for Magento 2.x with the Fat Zebra gateway services. This module includes support for the following functionality:
 
 * IFRAME card details capture for de-scoping of PCI requirements
 * Card tokenization and one-click saved card payment using the Magento Vault
@@ -26,16 +26,16 @@ Installation using Composer
 
 1.	Under the Magento root folder run the following command to setup the repository:
 ```
-composer config repositories.pmnts git https://github.com/PMNTS/magento2-pmnts.git
+composer config repositories.fatzebra git https://github.com/fatzebra/magento2-fatzebra.git
 ```
 2.	Then run the following command to add the module:
 ```
-composer require pmnts/magento2-pmnts:dev-master
+composer require fatzebra/magento2-fatzebra:dev-master
 ```
 3.	Following this the dependencies will be fetched or updated where required – this may take a few minutes.
 4.	Once all dependencies have installed the module needs to be enabled using the following commands:
 ```
-php bin/magento module:enable PMNTS_Gateway --clear-static-content && php bin/magento setup:upgrade
+php bin/magento module:enable FatZebra_Gateway --clear-static-content && php bin/magento setup:upgrade
 ```
 5.	Once the setup:upgrade command completes the module will be available within the Store Admin to configure.
 
@@ -43,11 +43,11 @@ php bin/magento module:enable PMNTS_Gateway --clear-static-content && php bin/ma
 Manual Installation
 -------------------
 
-1.	Download the latest archive of the module from https://github.com/PMNTS/magento2-pmnts/archive/master.zip
+1.	Download the latest archive of the module from https://github.com/fatzebra/magento2-fatzebra/archive/master.zip
 2.	Copy the archive to the server and extract – the files should be extracted into the Magento root folder, or copied over ensuring directories are included/preserved.
 3.	Run enable the module by running the following commands:
 ```
-php bin/magento module:enable PMNTS_Gateway --clear-static-content && php bin/magento setup:upgrade
+php bin/magento module:enable FatZebra_Gateway --clear-static-content && php bin/magento setup:upgrade
 ```
 4.	Once the setup:upgrade command completed the module will be available within the Store Admin to configure
 
@@ -59,7 +59,7 @@ To configure the module the following steps should be taken:
 1.	Login to the Magento Admin area (this is commonly at https://www.yoursite.com/admin, however it may be different)
 2.	From the menu on the left hand side select Stores and then Configuration
 3.  Under the Configuration menu select Sales and then Payment Methods
-4.	Under the PMNTS payment method set the configuration details as required
+4.	Under the Fat Zebra payment method set the configuration details as required
 5.	Once the configuration has been entered click Save Config – this will commit the changes to the database. The payment method can now be tested.
 
 Notes on Fraud Shipping Maps

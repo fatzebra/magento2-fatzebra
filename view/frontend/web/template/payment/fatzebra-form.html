@@ -1,10 +1,10 @@
 <!--
 /**
- * PMNTS_Gateway Template
+ * FatZebra_Gateway Template
  *
- * @category    PMNTS
- * @package     PMNTS_Gateway
- * @copyright   PMNTS (http://PMNTS.io)
+ * @category    Fat Zebra
+ * @package     FatZebra_Gateway
+ * @copyright   Fat Zebra (https://www.fatzebra.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 -->
@@ -38,7 +38,7 @@
           <!-- ko if: canSaveCard() -->
             <div class="field">
               <div class="control">
-                  <input type="checkbox" name="payment[cc_save]" class="input-checkbox" value="1" id="pmnts_gateway_cc_save"
+                  <input type="checkbox" name="payment[cc_save]" class="input-checkbox" value="1" id="fatzebra_gateway_cc_save"
                          data-bind="attr: {
                                           autocomplete: off,
                                           id: getCode() + '_cc_save',
@@ -62,7 +62,7 @@
                 <button class="action primary checkout"
                         type="submit"
                         data-bind="
-                        click: pmntsPlaceOrder,
+                        click: fatzebraPlaceOrder,
                         attr: {title: $t('Place Order')},
                         css: {disabled: !isPlaceOrderActionAllowed()},
                         enable: (getCode() == isChecked())
@@ -78,7 +78,7 @@
                         attr: {title: $t('Place Order')},
                         css: {disabled: !isPlaceOrderActionAllowed()}
                         "
-                        style="display: none;" id="pmnts-place-token-order">
+                        style="display: none;" id="fatzebra-place-token-order">
                     <span data-bind="text: $t('Place Order')"></span>
                 </button>
             </div>

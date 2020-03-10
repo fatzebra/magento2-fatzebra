@@ -3,13 +3,13 @@
 /**
  * Enabled carriers source model
  *
- * @category    PMNTS
- * @package     PMNTS_Gateway
- * @copyright   PMNTS (http://PMNTS.io)
+ * @category    Fat Zebra
+ * @package     FatZebra_Gateway
+ * @copyright   Fat Zebra (https://www.fatzebra.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-namespace PMNTS\Gateway\Model\Source;
+namespace FatZebra\Gateway\Model\Source;
 
 class EnabledMethods implements \Magento\Framework\Option\ArrayInterface
 {

@@ -1,20 +1,20 @@
 <?xml version="1.0"?>
 <!--
 /**
-* PMNTS_Gateway default configuration
+* FatZebra_Gateway default configuration
 *
-* @category    PMNTS
-* @package     PMNTS_Gateway
-* @copyright   PMNTS (http://PMNTS.io)
+* @category    Fat Zebra
+* @package     FatZebra_Gateway
+* @copyright   Fat Zebra (https://www.fatzebra.com)
 * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
 */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
     <default>
         <payment>
-            <pmnts_gateway>
+            <fatzebra_gateway>
                 <active>0</active>
-                <model>PmntsPayment</model>
+                <model>FatZebraPayment</model>
                 <payment_action>authorize_capture</payment_action>
                 <title>Credit Card</title>
                 <order_status>processing</order_status>
@@ -30,11 +30,11 @@
                 <iframe_css>https://pmnts-resources.s3.amazonaws.com/magento2/magento2-iframe.css</iframe_css>
                 <can_use_checkout>1</can_use_checkout>
                 <token backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
-            </pmnts_gateway>
-            <pmnts_gateway_vault>
-                <model>PmntsVaultProvider</model>
+            </fatzebra_gateway>
+            <fatzebra_gateway_vault>
+                <model>FatZebraVaultProvider</model>
                 <title>My Saved Cards</title>
-            </pmnts_gateway_vault>
+            </fatzebra_gateway_vault>
         </payment>
     </default>
 </config>

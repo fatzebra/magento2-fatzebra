@@ -1,19 +1,19 @@
 {
-    "description": "PMNTS Payment Gateway integration for Magento 2",
+    "description": "Fat Zebra Payment Gateway integration for Magento 2",
     "license": [
         "OSL-3.0"
     ],
-    "name": "pmnts/magento2-pmnts",
+    "name": "fatzebra/magento2-fatzebra",
     "require": {
     },
     "type": "magento2-module",
-    "version": "dev-master",
+    "version": "1.0.0",
     "autoload": {
         "files": [
             "registration.php"
         ],
         "psr-4": {
-            "PMNTS\\Gateway\\": ""
+            "FatZebra\\Gateway\\": ""
         }
     }
 }

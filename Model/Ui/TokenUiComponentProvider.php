@@ -1,6 +1,6 @@
 <?php
 
-namespace PMNTS\Gateway\Model\Ui;
+namespace FatZebra\Gateway\Model\Ui;
 
 use Magento\Vault\Api\Data\PaymentTokenInterface;
 use Magento\Vault\Model\Ui\TokenUiComponentInterface;
@@ -46,11 +46,11 @@ class TokenUiComponentProvider implements TokenUiComponentProviderInterface
         $component = $this->componentFactory->create(
             [
                 'config' => [
-                    'code' => \PMNTS\Gateway\Helper\Data::VAULT_METHOD_CODE,
+                    'code' => \FatZebra\Gateway\Helper\Data::VAULT_METHOD_CODE,
                     TokenUiComponentProviderInterface::COMPONENT_DETAILS => $jsonDetails,
                     TokenUiComponentProviderInterface::COMPONENT_PUBLIC_HASH => $paymentToken->getPublicHash()
                 ],
-                'name' => 'PMNTS_Gateway/js/view/payment/method-renderer/vault'
+                'name' => 'FatZebra_Gateway/js/view/payment/method-renderer/vault'
             ]
         );
 

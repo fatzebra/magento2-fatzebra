@@ -1,6 +1,6 @@
 <?php
 
-namespace PMNTS\Gateway\Model\Config\Source\Order\Status;
+namespace FatZebra\Gateway\Model\Config\Source\Order\Status;
 
 use Magento\Sales\Model\Order;
 use Magento\Sales\Model\Config\Source\Order\Status;

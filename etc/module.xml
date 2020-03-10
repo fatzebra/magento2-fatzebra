@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <!--
 /**
-* PMNTS_Gateway module dependency
+* FatZebra_Gateway module dependency
 *
-* @category    PMNTS
-* @package     PMNTS_Gateway
-* @copyright   PMNTS (http://PMNTS.io)
+* @category    Fat Zebra
+* @package     FatZebra_Gateway
+* @copyright   Fat Zebra (https://www.fatzebra.com)
 * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
 */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
-    <module name="PMNTS_Gateway" setup_version="2.0.10">
+    <module name="FatZebra_Gateway" setup_version="2.0.10">
         <sequence>
             <module name="Magento_Customer"/>
             <module name="Magento_Sales" />

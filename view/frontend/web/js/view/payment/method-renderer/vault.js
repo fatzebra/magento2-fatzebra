@@ -10,7 +10,7 @@ define([
 
     return VaultComponent.extend({
         defaults: {
-            template: 'PMNTS_Gateway/payment/pmnts_vault_form'
+            template: 'FatZebra_Gateway/payment/fatzebra_vault_form'
         },
 
         /**

@@ -4,7 +4,7 @@
     <body>
         <referenceContainer name="content">
             <referenceBlock name="vault.cards.list">
-                <block class="PMNTS\Gateway\Block\Customer\CardRenderer" name="pmnts.card.renderer" template="Magento_Vault::customer_account/credit_card.phtml"/>
+                <block class="FatZebra\Gateway\Block\Customer\CardRenderer" name="fatzebra.card.renderer" template="Magento_Vault::customer_account/credit_card.phtml"/>
             </referenceBlock>
         </referenceContainer>
     </body>
