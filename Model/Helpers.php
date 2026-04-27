@@ -12,7 +12,7 @@
 *
 * @package FatZebra
 */
-namespace FatZebra;
+namespace FatZebra\Gateway\Model;
 
 class Helpers
 {
