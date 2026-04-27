@@ -126,7 +126,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             "customer" => [
                     "address_1" => $this->cleanForFraud($billing->getStreetLine(1) . ' ' . $billing->getStreetLine(2), self::RE_ANS, 30),
                     "city" => $this->cleanForFraud($billing->getCity(), self::RE_ANS, 20),
-                    "country" => \FatZebra\Helpers::iso3166_alpha3($billing->getCountryId()),
+                    "country" => \FatZebra\Gateway\Model\Helpers::iso3166_alpha3($billing->getCountryId()),
                     "created_at" => $customerCreatedAt,
                     "date_of_birth" => $customerDob,
                     "email" => $order->getCustomerEmail(),
@@ -143,7 +143,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                 [
                     "address_1" => $this->cleanForFraud($billing->getStreetLine(1) . ' ' . $billing->getStreetLine(2), self::RE_ANS, 30),
                     "city" => $this->cleanForFraud($billing->getCity(), self::RE_ANS, 20),
-                    "country" => \FatZebra\Helpers::iso3166_alpha3($billing->getCountryId()),
+                    "country" => \FatZebra\Gateway\Model\Helpers::iso3166_alpha3($billing->getCountryId()),
                     "email" => $billing->getEmail(),
                     "first_name" => $this->cleanForFraud($billing->getFirstname(), self::RE_ANS, 30),
                     "last_name" => $this->cleanForFraud($billing->getLastname(), self::RE_ANS, 30),
@@ -159,7 +159,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             $fraudData["shipping_address"] = [
                 "address_1" => $this->cleanForFraud($shipping->getStreetLine(1) . ' ' . $shipping->getStreetLine(2), self::RE_ANS, 30),
                 "city" => $this->cleanForFraud($shipping->getCity(), self::RE_ANS, 20),
-                "country" => \FatZebra\Helpers::iso3166_alpha3($billing->getCountryId()),
+                "country" => \FatZebra\Gateway\Model\Helpers::iso3166_alpha3($billing->getCountryId()),
                 "email" => $shipping->getEmail(),
                 "first_name" => $this->cleanForFraud($shipping->getFirstname(), self::RE_ANS, 30),
                 "last_name" => $this->cleanForFraud($shipping->getLastname(), self::RE_ANS, 30),
@@ -174,7 +174,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
     public function cleanForFraud($data, $pattern, $maxlen, $trimDirection = 'right')
     {
-        $data = preg_replace($pattern, '', \FatZebra\Helpers::toASCII($data));
+        $data = preg_replace($pattern, '', \FatZebra\Gateway\Model\Helpers::toASCII($data));
         $data = preg_replace('/[\r\n]/', ' ', $data);
         if (strlen($data) > $maxlen) {
             if ($trimDirection == 'right') {
