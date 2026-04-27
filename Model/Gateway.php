@@ -26,7 +26,7 @@
     */
 namespace FatZebra\Gateway\Model;
 
-use Zend\Http\Client\Adapter\Exception\TimeoutException;
+use Laminas\Http\Client\Adapter\Exception\TimeoutException;
 
 /**
 * The Fat Zebra Gateway class for interfacing with Fat Zebra
