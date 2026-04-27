@@ -24,7 +24,7 @@ class AssignDataObserver extends \Magento\Payment\Observer\AbstractDataAssignObs
             $paymentInfo->setAdditionalInformation('fatzebra_token', $additionalData['cc_token']);
         }
         if (isset($additionalData['pmnts_id']) && !empty($additionalData['pmnts_id'])) {
-            $paymentInfo->setAdditionalInformation('fatzebra_device_id', $additionalData['pmnts_id']);
+            $paymentInfo->setAdditionalInformation('pmmts_device_id', $additionalData['pmnts_id']);
         }
     }
 }

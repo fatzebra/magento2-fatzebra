@@ -94,7 +94,7 @@
 
     <virtualType name="FatZebraGatewayLogger" type="Magento\Framework\Logger\Monolog">
         <arguments>
-            <argument name="name" xsi:type="object">fatzebra_gateway</argument>
+            <argument name="name" xsi:type="string">fatzebra_gateway</argument>
             <argument name="handlers" xsi:type="array">
                 <item name="default" xsi:type="object">FatZebraGatewayLoggerHandler</item>
             </argument>
