@@ -48,7 +48,7 @@ class FatZebraConfigProvider implements ConfigProviderInterface
     {
         $config = [
             'payment' => [
-                'FatZebraGateway' => [
+                'fatzebraGateway' => [
                     'iframeSrc' => $this->getIframeSrc(),
                     'fraudFingerprintSrc' => $this->getFraudFingerprintSource(),
                     'isSandbox' => $this->getIsSandbox(),
