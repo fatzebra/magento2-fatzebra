@@ -71,9 +71,9 @@ class FatZebraConfigProvider implements ConfigProviderInterface
         $is_sandbox = $this->getConfigValue("sandbox_mode");
         $username = $this->getConfigValue("username");
         if ($is_sandbox) {
-            return "https://gateway.FatZebra-sandbox.io/fraud/fingerprint/{$username}.js";
+            return "https://gateway.pmnts-sandbox.io/fraud/fingerprint/{$username}.js";
         } else {
-            return "https://gateway.FatZebra.io/fraud/fingerprint/{$username}.js";
+            return "https://gateway.pmnts.io/fraud/fingerprint/{$username}.js";
         }
     }
 
@@ -86,9 +86,9 @@ class FatZebraConfigProvider implements ConfigProviderInterface
         $hash_payload = "{$nonce}:1.0:AUD";
         $hash = hash_hmac("md5", $hash_payload, $shared_secret);
 
-        $base_url = "https://paynow.FatZebra.io";
+        $base_url = "https://paynow.pmnts.io";
         if ($is_sandbox) {
-            $base_url = "https://paynow.FatZebra-sandbox.io";
+            $base_url = "https://paynow.pmnts-sandbox.io";
         }
 
         $url = "{$base_url}/v2/{$username}/{$nonce}/AUD/1.0/{$hash}?show_extras=false&show_email=false&iframe=true&paypal=false&tokenize_only=true&masterpass=false&visacheckout=false&hide_button=true&postmessage=true&return_target=_self&ajax=true";
